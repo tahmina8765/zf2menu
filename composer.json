@@ -1,0 +1,23 @@
+{
+    "name": "tahmina8765/zf2menu",
+    "description": "Menu Management Module for zend framework 2",
+    "authors": [
+        {
+            "name": "Tahmina Khatoon",
+            "email": "tahmina8765@yahoo.com",
+            "homepage": "http://tahmina.lifencolor.com/"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "tahmina8765/zf2auth": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "Zf2menu": "./"
+        },
+        "classmap": [
+            "./Module.php"
+        ]
+    }
+}

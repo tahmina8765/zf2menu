@@ -1,0 +1,16 @@
+<script>
+    var menuObj = {
+        menuInit: function () {
+            $("#type").change(function () {
+                var str = $("#type").val();
+                if (str == 1) {
+                    $('#url').parent().parent().show();
+                    $('#resource_id').parent().parent().hide();
+                } else {
+                    $('#url').parent().parent().hide();
+                    $('#resource_id').parent().parent().show();
+                }
+            }).trigger("change");
+        }
+    }
+</script>

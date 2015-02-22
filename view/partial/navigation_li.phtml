@@ -1,0 +1,110 @@
+<?php
+$mainmenu  = $data['data'];
+$childmenu = $data['child'];
+$type      = empty($type) ? '' : $type;
+switch ($type) {
+    case 'dropdown':
+        if (!empty($childmenu)) {
+            ?>
+            <li class="dropdown"><a href="<?php echo empty($mainmenu->type) ? $this->url($mainmenu->resource_name) : $mainmenu->url; ?>" class="dropdown-toggle" data-toggle="dropdown"> <?php echo $this->translate($mainmenu->name); ?><b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <?php
+                    foreach ($childmenu as $row) {
+                        echo $this->partial('partial/navigation_li.phtml', array ('data' => $row, 'type' => $type));
+                    }
+                    ?>
+                </ul>
+            </li>
+            <?php
+        } else {
+            if (empty($mainmenu->type) || (!empty($mainmenu->url) && ($mainmenu->url != '#'))) {
+                ?>
+                <li><a href="<?php echo empty($mainmenu->type) ? $this->url($mainmenu->resource_name) : $mainmenu->url; ?>"><?php echo $this->translate($mainmenu->name); ?></a></li>
+                <?php
+            }
+        }
+        break;
+    case 'dropdown-side':
+        if (!empty($childmenu)) {
+            ?>
+            <li class="sub-menu"><a href="<?php echo empty($mainmenu->type) ? $this->url($mainmenu->resource_name) : $mainmenu->url; ?>"><i class='fa <?php echo empty($mainmenu->icon) ? 'fa-bars' : $mainmenu->icon; ?>'></i><span><?php echo $this->translate($mainmenu->name); ?></span></a>
+                <ul class="sub">
+                    <?php
+                    foreach ($childmenu as $row) {
+                        echo $this->partial('partial/navigation_li.phtml', array ('data' => $row, 'type' => $type));
+                    }
+                    ?>
+                </ul>
+            </li>
+            <?php
+        } else {
+            if (empty($mainmenu->type) || (!empty($mainmenu->url) && ($mainmenu->url != '#'))) {
+                ?>
+                <li>
+                    <a href="<?php echo empty($mainmenu->type) ? $this->url($mainmenu->resource_name) : $mainmenu->url; ?>">
+                        <?php
+                        if(empty($mainmenu->parent_id)){
+                        ?>
+                        <i class='fa <?php echo empty($mainmenu->icon) ? 'fa-bars' : $mainmenu->icon; ?>'></i>
+                        <span>
+                            <?php echo $this->translate($mainmenu->name); ?>
+                        </span>
+                        <?php
+                        }else{
+                            echo $this->translate($mainmenu->name);
+                        }
+                        ?>
+                    </a>
+                </li>
+                <?php
+            }
+        }
+        break;
+    case 'reorder':
+        $lavel = (int) $lavel;
+        ?>
+        <tr class="level_<?php echo $lavel; ?>">
+            <td>
+                <?php
+                for ($i = 0; $i < $lavel; $i++) {
+                    echo "|----";
+                }
+                ?>
+                <a href="<?php echo empty($mainmenu->type) ? $this->url($mainmenu->resource_name) : $mainmenu->url; ?>" class="dropdown-toggle" data-toggle="dropdown"> <?php echo $this->translate($mainmenu->name); ?></a></td>
+            <td>
+                <a href="<?php echo $this->url('menus/reorder', array ('id' => $mainmenu->id, 'direction' => 'up')); ?>" class="btn btn-default btn-xs "><i class="glyphicon glyphicon-chevron-up"></i></a>
+                <a href="<?php echo $this->url('menus/reorder', array ('id' => $mainmenu->id, 'direction' => 'down')); ?>" class="btn btn-default btn-xs "><i class="glyphicon glyphicon-chevron-down"></i></a>
+            </td>
+        </tr>
+        <?php
+        if (!empty($childmenu)) {
+
+            $lavel++;
+            foreach ($childmenu as $row) {
+                echo $this->partial('partial/navigation_li.phtml', array ('data' => $row, 'type' => $type, 'lavel' => $lavel));
+            }
+            ?>
+            </tr>
+            <?php
+        }
+        break;
+    default:
+        if (!empty($childmenu)) {
+            ?>
+            <li><a href="<?php echo empty($mainmenu->type) ? $this->url($mainmenu->resource_name) : $mainmenu->url; ?>" class="dropdown-toggle" data-toggle="dropdown"> <?php echo $this->translate($mainmenu->name); ?></a>
+                <ul>
+                    <?php
+                    foreach ($childmenu as $row) {
+                        echo $this->partial('partial/navigation_li.phtml', array ('data' => $row, 'type' => $type));
+                    }
+                    ?>
+                </ul>
+            </li>
+            <?php
+        } else {
+            ?>
+            <li><a href="<?php echo empty($mainmenu->type) ? $this->url($mainmenu->resource_name) : $mainmenu->url; ?>"><?php echo $this->translate($mainmenu->name); ?></a></li>
+            <?php
+        }
+        break;
+}

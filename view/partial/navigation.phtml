@@ -1,0 +1,65 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"  data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="<?php echo $this->url('home') ?>"><img src="<?php echo $this->basePath('img/zf2-logo.png') ?>" alt="Zend Framework 2"/>&nbsp;<?php echo $this->translate('Skeleton Application') ?></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse">
+                <?php
+                $userData = $this->Zf2authIdentity_widget();
+                if (!empty($userData)) {
+                    echo $this->Navigation_widget($userData->role_id);
+                    /*
+                    ?>
+                    <li><a href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Dashboard') ?></a></li>
+                    <li><a href="<?php echo $this->url('panel_reports') ?>"><?php echo $this->translate('Panel'); ?></a></li>
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">CRM <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo $this->url('occ_contacts') ?>"><?php echo $this->translate('Contacts') ?></a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo $this->url('ast_cdr') ?>"><?php echo $this->translate('Calls report') ?></a></li>
+                            <li><a href="<?php echo $this->url('occ_applog') ?>"><?php echo $this->translate('IVR and apps report') ?></a></li>
+                            <li><a href="<?php echo $this->url('queue_reports') ?>"><?php echo $this->translate('Queue report') ?></a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Configuration <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo $this->url('occ_trunk') ?>"><?php echo $this->translate('Numbers') ?></a></li>
+                            <li><a href="<?php echo $this->url('ast_queues') ?>"><?php echo $this->translate('Queues') ?></a></li>
+                            <li><a href="<?php echo $this->url('occ_prompt') ?>"><?php echo $this->translate('Prompts') ?></a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">User Management <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <!--<li><a href="<?php // echo $this->url('zf2auth') ?>"><?php // echo $this->translate('Users') ?></a></li>-->
+                            <li><a href="<?php echo $this->url('profiles/index') ?>"><?php echo $this->translate('Users') ?></a></li>
+                            <li><a href="<?php echo $this->url('customers/index') ?>"><?php echo $this->translate('Customers') ?></a></li>
+                            <li><a href="<?php echo $this->url('roles/index') ?>"><?php echo $this->translate('Roles') ?></a></li>
+                            <li class="divider" role="presentation"></li>
+                            <li><a href="<?php echo $this->url('resources/refreshResources') ?>"><?php echo $this->translate('Refresh Resources') ?></a></li>
+                        </ul>
+                    </li>
+                    <?php
+                     *
+                     */
+                }
+                ?>
+
+            <div class="nav navbar-nav navbar-right">
+                <?php echo $this->Authenticated_widget(); ?>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</nav>

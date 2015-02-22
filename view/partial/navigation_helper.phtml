@@ -1,0 +1,10 @@
+<ul class="nav navbar-nav">
+    <?php
+    if (!empty($data)) {
+        foreach ($data as $row) {
+            echo $this->partial('partial/navigation_li.phtml', array('data' => $row, 'type' => 'dropdown'));
+        }
+    }
+    ?>
+</ul>
+

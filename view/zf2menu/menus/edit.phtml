@@ -1,0 +1,74 @@
+<?php
+$display_status = $this->UtilHelper()->displayStatus();
+$hidden_items   = $this->UtilHelper()->hiddenElements();
+
+$title = 'Edit Menu';
+$this->headTitle($title);
+?>
+<?php echo $this->partial('partial/menujs.phtml'); ?>
+<div class="occ-container">
+    <div class="row">
+        <?php echo $this->partial('partial/message.phtml', array ('flashMessages' => $this->flashMessages, 'error' => $this->error)); ?>
+        <div class="panel">
+            <div class="panel-heading">
+                <?php echo $this->escapeHtml($title); ?>
+                <div class="dropdown pull-right tools">
+                    <a class="btn btn-primary" href="<?php echo $this->url('menus/index'); ?>">List menus</a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <?php
+                $form  = $this->form;
+                $form->setAttribute('action', $this->url('menus/edit', array ('id' => $this->id,)));
+                $form->prepare();
+                echo $this->form()->openTag($form);
+                foreach ($form as $element) :
+                    if (empty($display_status)) {
+                        $name = $element->getName();
+                        if (in_array($name, $hidden_items)) {
+                            continue;
+                        }
+                    }
+                    $current_class = $element->getAttribute('class');
+                    $class_array   = explode(' ', $current_class);
+                    $current_type  = $element->getAttribute('type');
+                    ?>
+                    <div class="form-group <?php echo ($current_type == 'hidden') ? $current_type : ''; ?>">
+                        <label class="col-sm-4 control-label"><?php echo $element->getLabel(); ?></label>
+                        <div class="col-sm-8">
+                            <?php
+                            if ($this->formElementErrors($element)) {
+                                $element->setAttribute('class', $current_class . ' ErrorField');
+                            }
+                            echo $this->formElement($element);
+                            if ($this->formElementErrors($element)):
+                                ?>
+                                <span class="ValidationErrors"><?php echo $this->formElementErrors($element); ?></span>
+                                <?php
+                            endif;
+                            ?>
+                        </div>
+                    </div>
+                    <?php
+                endforeach;
+                ?>
+                <div class="form-group">
+                    <div class="col-sm-8  col-sm-push-4">
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button class="btn btn-default reset" type="reset" onclick="history.back();">Cancel</button>
+                    </div>
+                </div>
+                <?php
+                echo $this->form()->closeTag();
+                ?>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    /* <![CDATA[ */
+    jQuery(function() {
+        menuObj.menuInit();
+    });
+    /* ]]> */
+</script>
