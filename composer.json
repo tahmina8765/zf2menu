@@ -8,6 +8,8 @@
             "homepage": "http://tahmina.lifencolor.com/"
         }
     ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
         "php": ">=5.3.3",
         "tahmina8765/zf2auth": "dev-master"
